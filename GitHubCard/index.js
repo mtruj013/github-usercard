@@ -10,7 +10,7 @@ axios.get('https://api.github.com/users/mtruj013')
 
   const makeCard = makeCards(response.data);
   parentElement.append(makeCard);
-  console.log(response);
+  //console.log(response);
 })
 .catch(error => {
   console.log("the data was not returned :(", error)
@@ -38,7 +38,22 @@ axios.get('https://api.github.com/users/mtruj013')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tippitytapp",
+  "mrsimpson3000",
+  "easpaas",
+  "devjaymoe",
+  "Riley-Robinson"
+];
+
+followersArray.forEach(follower =>{
+  axios.get(`https://api.github.com/users/${follower}`)
+  .then(response =>{
+    parentElement.append(makeCards(response.data));
+    console.log(response);
+  })
+})
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -59,7 +74,10 @@ const followersArray = [];
 </div>
 
 */
+
+//grab parent element
 const parentElement = document.querySelector('.cards');
+
 function makeCards(objData){
 
   //create new elements
@@ -103,8 +121,6 @@ function makeCards(objData){
   cardInfoDiv.append(followers);
   cardInfoDiv.append(following);
   cardInfoDiv.append(bio);
-
-  //grab parent element
   
 
   //return the component
